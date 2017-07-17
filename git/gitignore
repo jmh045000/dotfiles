@@ -281,3 +281,14 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# for work
+*.tsk*
+sun32/
+sun64/
+linux32/
+linux64/
+sun32_gsoap/
+sun64_gsoap/
+linux32_gsoap/
+linux64_gsoap/

@@ -3,6 +3,7 @@
         # Staging
         a = add
         aa = add --all
+        au = add --update
 
         # Branch
         br = branch
