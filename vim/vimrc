@@ -1,0 +1,45 @@
+
+set nocompatible              " be iMproved, required
+
+source ~/bundles.vim
+
+syntax on
+
+"Information on the following setting can be found with
+":help set
+set tabstop=4
+set expandtab
+set autoindent 
+set shiftwidth=4  "this is the level of autoindent, adjust to taste
+set ruler
+set number
+set backspace=indent,eol,start
+set visualbell
+" Uncomment below to make screen not flash on error
+" set vb t_vb=""
+
+set softtabstop=4
+
+" Highlight search patterns
+set hlsearch
+
+" Let airline show by default
+set laststatus=2
+
+" Change colorscheme
+colorscheme molokai
+
+" Make the ',' be the 'command modifier'
+map , \
+
+" Turn on RainbowParentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" Turn on XML syntax folding
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
+map <S-DEL> <BS>

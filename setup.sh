@@ -26,3 +26,13 @@ ln -sfv ${PRGDIR}/zsh/zshrc ~/.zshrc
 # git
 ln -sfv ${PRGDIR}/git/gitconfig ~/.gitconfig
 ln -sfv ${PRGDIR}/git/gitignore ~/.gitignore
+
+# vim
+if [ ! -e ~/.vim/bundle/Vundle.vim ] ; then
+    echo "Installing vundle"
+    mkdir -p ~/.vim/bundle
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/vim/bundle/Vundle.vim
+fi
+ln -sfv ${PRGDIR}/vim/vimrc ~/.vimrc
+ln -sfv ${PRGDIR}/vim/gvimrc ~/.gvimrc
+ln -sfv ${PRGDIR}/vim/bundles.vim ~/bundles.vim

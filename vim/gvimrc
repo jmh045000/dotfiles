@@ -1,0 +1,4 @@
+source ~/.vimrc
+
+set guifont=Monospace\ 10
+set lines=60 columns=100
