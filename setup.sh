@@ -2,6 +2,8 @@
 
 PRGDIR=$(cd $(dirname $(ls -1 $0)) ; pwd)
 
+( cd ${PRGDIR} ; git pull )
+
 zsh_exists=$(which zsh)
 if [ -z "$zsh_exists" ] ; then
     echo "Installing zsh with sudo"

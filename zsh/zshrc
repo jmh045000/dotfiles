@@ -90,3 +90,6 @@ source ~/.zshrc.local
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias gvim='gvim -p'
+alias gview='gview -p'

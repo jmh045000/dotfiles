@@ -33,9 +33,9 @@
         cp = cherry-pick
 
         # Diff
-        d = diff --color-words
+        d = diff
         dc = diff --cached
-        df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+        df = !"git diff-index --quiet HEAD -- || clear; git --no-pager d --patch-with-stat"
 
         # Merge
         m = merge
@@ -49,7 +49,7 @@
         # Push
         p = push
         pom = push origin master
-        poh = push origin head
+        poh = !"git push origin $(git branch-name)"
 
         # Stash
         st = stash
