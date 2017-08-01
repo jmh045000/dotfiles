@@ -29,6 +29,18 @@ ln -sfv ${PRGDIR}/zsh/zshrc ~/.zshrc
 ln -sfv ${PRGDIR}/git/gitconfig ~/.gitconfig
 ln -sfv ${PRGDIR}/git/gitignore ~/.gitignore
 
+if [ -z "$(git config user.email)" ] ; then
+    echo -n "Git Email> "
+    read git_email
+    git config --file ~/.gitconfig.local user.email $git_email
+fi
+
+if [ -z "$(git config user.name)" ] ; then
+    echo -n "Git Name > "
+    read git_name
+    git config --file ~/.gitconfig.local user.name $git_name
+fi
+
 # vim
 if [ ! -e ~/.vim/bundle/Vundle.vim ] ; then
     echo "Installing vundle"
