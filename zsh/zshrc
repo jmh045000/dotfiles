@@ -62,7 +62,9 @@ zstyle ':completion:*' accept-exact-dirs true
 # Do tab complete '..' -> '../'
 zstyle ':completion:*' special-dirs true
 
-source ~/.zshrc.local
+if [ -r ~/.zshrc.local ] ; then
+    source ~/.zshrc.local
+fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

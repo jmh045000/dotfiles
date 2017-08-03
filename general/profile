@@ -21,13 +21,16 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 EDITOR="vim"
 
-stty sane # should normalize backspace issues?
-
-xset b off # turn off the stupid terminal bell
-
 [ -r "$HOME/.profile.local" ] && source "$HOME/.profile.local"
 
-# If not running zsh, exec it
-if [ -z "$ZSH_VERSION" ] ; then
-    exec $(which zsh)
+if [ -t 1 ] ; then
+
+    stty sane # should normalize backspace issues?
+
+    xset b off # turn off the stupid terminal bell
+
+    # If not running zsh, exec it
+    if [ -z "$ZSH_VERSION" ] ; then
+        exec $(which zsh)
+    fi
 fi
