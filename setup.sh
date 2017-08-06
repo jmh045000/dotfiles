@@ -45,7 +45,7 @@ fi
 if [ ! -e ~/.vim/bundle/Vundle.vim ] ; then
     echo "Installing vundle"
     mkdir -p ~/.vim/bundle
-    git clone https://github.com/vundlevim/vundle.vim.git ~/.vim/bundle/vundle.vim
+    git clone https://github.com/vundlevim/vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 ln -sfv ${PRGDIR}/vim/vimrc ~/.vimrc
 ln -sfv ${PRGDIR}/vim/gvimrc ~/.gvimrc
