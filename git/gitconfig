@@ -19,6 +19,7 @@
         cam = commit -am
         cne = commit --no-edit
         amend = commit --amend
+        cane = commit --amend --no-edit
         amend-all = !git add --all && git commit --amend --reuse-message=HEAD
 
         # Clone
