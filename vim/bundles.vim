@@ -22,6 +22,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'git@bbgithub.dev.bloomberg.com:lkisskol/pkgcfg_plugin.git'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'w0rp/ale'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
