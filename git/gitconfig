@@ -174,7 +174,7 @@
 
 [help]
         # Correct typos
-        autocorrect = 1
+        autocorrect = 10
 
 # Push easily http://stackoverflow.com/a/23918418/89484
 [push]
