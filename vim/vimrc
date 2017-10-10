@@ -42,4 +42,7 @@ au Syntax * RainbowParenthesesLoadBraces
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 
+" Change pylint executable
+let g:ale_python_pylint_executable="pylint3.6"
+
 map <S-DEL> <BS>
