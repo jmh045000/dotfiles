@@ -31,6 +31,10 @@ if [ -t 1 ] ; then
 
     # If not running zsh, exec it
     if [ -z "$ZSH_VERSION" ] ; then
-        exec $(which zsh)
+        zsh_exec=$(which zsh)
+        export SHELL=${zsh_exec}
+        exec ${zsh_exec}
     fi
 fi
+
+umask 022

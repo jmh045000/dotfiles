@@ -7,10 +7,10 @@ syntax on
 
 "Information on the following setting can be found with
 ":help set
-set tabstop=4
-set expandtab
+set ts=4
+set et
 set autoindent 
-set shiftwidth=4  "this is the level of autoindent, adjust to taste
+set sw=4  "this is the level of autoindent, adjust to taste
 set ruler
 set number
 set backspace=indent,eol,start
@@ -18,7 +18,7 @@ set visualbell
 " Uncomment below to make screen not flash on error
 " set vb t_vb=""
 
-set softtabstop=4
+set sts=4
 
 " Highlight search patterns
 set hlsearch
@@ -41,5 +41,8 @@ au Syntax * RainbowParenthesesLoadBraces
 " Turn on XML syntax folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
+
+" Change pylint executable
+let g:ale_python_pylint_executable="pylint3.6"
 
 map <S-DEL> <BS>
