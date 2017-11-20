@@ -50,3 +50,7 @@ fi
 ln -sfv ${PRGDIR}/vim/vimrc ~/.vimrc
 ln -sfv ${PRGDIR}/vim/gvimrc ~/.gvimrc
 ln -sfv ${PRGDIR}/vim/bundles.vim ~/bundles.vim
+
+# i3
+mkdir -p "~/.config/i3"
+ln -sfv "${PRGDIR}/i3/config" ~/.config/i3/config
