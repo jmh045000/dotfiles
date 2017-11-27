@@ -65,10 +65,6 @@ zstyle ':completion:*' accept-exact-dirs true
 # Do tab complete '..' -> '../'
 zstyle ':completion:*' special-dirs true
 
-if [ -r ~/.zshrc.local ] ; then
-    source ~/.zshrc.local
-fi
-
 # Append ~/.local/bin to the path
 export PATH=$PATH:${HOME}/.local/bin
 
@@ -101,3 +97,8 @@ export PATH=$PATH:${HOME}/.local/bin
 
 alias gvim='gvim -p'
 alias gview='gview -p'
+
+if [ -r ~/.zshrc.local ] ; then
+    source ~/.zshrc.local
+fi
+

@@ -23,11 +23,13 @@ EDITOR="vim"
 
 [ -r "$HOME/.profile.local" ] && source "$HOME/.profile.local"
 
+umask 022
+
 if [ -t 1 ] ; then
 
     stty sane # should normalize backspace issues?
 
-    xset b off # turn off the stupid terminal bell
+    which xset &>/dev/null && xset b off # turn off the stupid terminal bell
 
     # If not running zsh, exec it
     if [ -z "$ZSH_VERSION" ] ; then
@@ -36,5 +38,3 @@ if [ -t 1 ] ; then
         exec ${zsh_exec}
     fi
 fi
-
-umask 022
