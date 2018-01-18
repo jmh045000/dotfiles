@@ -4,19 +4,38 @@ PRGDIR=$(cd $(dirname $(ls -1 $0)) ; pwd)
 
 ( cd ${PRGDIR} ; git pull )
 
+function install_package() {
+    local package="$1"
+    echo "Installing ${package} with sudo"
+    if [ -x "$(which apt-get)" ] ; then
+        sudo apt-get install ${package}
+    elif [ -x "$(which yum)" ] ; then
+        sudo yum install ${package}
+    fi
+}
+
 zsh_exists=$(which zsh)
 if [ -z "$zsh_exists" ] ; then
-    echo "Installing zsh with sudo"
-    if [ -x "$(which apt-get)" ] ; then
-        sudo apt-get install zsh
-    elif [ -x "$(which yum)" ] ; then
-        sudo yum install zsh
-    fi
+    install_package zsh
 fi
 
 if [ ! -e ~/.oh-my-zsh ] ; then
     echo "Installing oh-my-zsh"
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+fi
+
+fzf_exists=$(which fzf)
+if [ -z "$fzf_exists" ] ; then
+    install_package fzf
+fi
+
+ag_exists=$(which ag)
+if [ -z "$ag_exists" ] ; then
+    if [ -x "$(which apt-get)" ] ; then
+        install_package silversearcher-ag
+    elif [ -x "$(which yum)" ] ; then
+        install_package the_silver_searcher
+    fi
 fi
 
 # general
