@@ -18,11 +18,12 @@ Plugin 'Modeliner'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'gregsexton/MatchTag'
-Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'git@bbgithub.dev.bloomberg.com:lkisskol/pkgcfg_plugin.git'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'w0rp/ale'
+Plugin 'junegunn/fzf'
+Plugin 'mileszs/ack.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 

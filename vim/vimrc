@@ -30,7 +30,7 @@ set laststatus=2
 colorscheme molokai
 
 " Make the ',' be the 'command modifier'
-map , \
+let mapleader = ","
 
 " Turn on RainbowParentheses
 au VimEnter * RainbowParenthesesToggle
@@ -44,5 +44,28 @@ au FileType xml setlocal foldmethod=syntax
 
 " Change pylint executable
 let g:ale_python_pylint_executable="pylint3.6"
+
+" Add mapping for fzf
+map <Leader>f :FZF<CR>
+
+" Use ag for the ack plugin
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Silence vim's grep on the terminal
+function Search(string) abort
+  let saved_shellpipe = &shellpipe
+  let &shellpipe = '>'
+  try
+    execute 'Ack!' shellescape(a:string, 1)
+  finally
+    let &shellpipe = saved_shellpipe
+  endtry
+endfunction
+
+" Use Ack! so we don't auto open files and shortcut it
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :call Search('')<left><left>
 
 map <S-DEL> <BS>
