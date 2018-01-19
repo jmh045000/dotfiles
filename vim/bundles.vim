@@ -24,6 +24,7 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf'
 Plugin 'mileszs/ack.vim'
+Plugin 'bkad/camelcasemotion'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
