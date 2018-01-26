@@ -54,7 +54,7 @@ if executable('ag')
 endif
 
 " Silence vim's grep on the terminal
-function Search(string) abort
+function! Search(string) abort
   let saved_shellpipe = &shellpipe
   let &shellpipe = '>'
   try
@@ -69,13 +69,6 @@ cnoreabbrev Ack Ack!
 nnoremap <Leader>a :call Search('')<left><left>
 
 " Add CamelCaseMotion to default motion
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
+call camelcasemotion#CreateMotionMappings('<leader>')
 
 map <S-DEL> <BS>
