@@ -58,6 +58,7 @@ zsh_exists=$(which zsh)
 set -e
 if [ -z "$zsh_exists" ] ; then
     install_package zsh
+    sudo chsh $(whoami) -s /usr/bin/zsh
 fi
 
 if [ ! -e ~/.oh-my-zsh ] ; then
