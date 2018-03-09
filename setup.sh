@@ -4,6 +4,7 @@ set -e
 
 PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
+UPDATE="yes"
 while [[ $# -gt 0 ]] ; do
     key="$1"
     case "$key" in
@@ -22,6 +23,10 @@ while [[ $# -gt 0 ]] ; do
             shift
             shift
             ;;
+        --no-update)
+            UPDATE="no"
+            shift
+            ;;
         *)
             echo "Unsupported argument $key"
             echo "Usage:"
@@ -31,11 +36,13 @@ while [[ $# -gt 0 ]] ; do
     esac
 done
 
-orig_hash="$(md5sum "$0")"
-( cd "${PRGDIR}" && git pull )
-new_hash="$(md5sum "$0")"
-if [ "$orig_hash" != "$new_hash" ] ; then
-    exec "$0" "$*"
+if [ "${UPDATE}" = "yes" ] ; then
+    orig_hash="$(md5sum "$0")"
+    ( cd "${PRGDIR}" && git pull )
+    new_hash="$(md5sum "$0")"
+    if [ "$orig_hash" != "$new_hash" ] ; then
+        exec "$0" "$*"
+    fi
 fi
 
 install_package() {
