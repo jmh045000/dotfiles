@@ -84,7 +84,7 @@ ln -sfv "${PRGDIR}/zsh/zshrc" /home/${USER}/.zshrc
 ln -sfv "${PRGDIR}/git/gitconfig" /home/${USER}/.gitconfig
 ln -sfv "${PRGDIR}/git/gitignore" /home/${USER}/.gitignore
 
-if [ -n "${EMAIL}" ] || [ -z "$(git config user.email)" ] ; then
+if \( [ -n "${EMAIL}" ] && [ "${EMAIL}" != "$(git config user.email)" ] \) || [ -z "$(git config user.email)" ] ; then
     if [ -z "${EMAIL}" ] ; then
         echo -n "Git Email> "
         read -r EMAIL
@@ -92,7 +92,7 @@ if [ -n "${EMAIL}" ] || [ -z "$(git config user.email)" ] ; then
     git config --file /home/${USER}/.gitconfig.local user.email "$EMAIL"
 fi
 
-if [ -n "${NAME}" ] || [ -z "$(git config user.name)" ] ; then
+if \( [ -n "${NAME}" ] && [ "${NAME}" != "$(git config user.name)" ] \) || [ -z "$(git config user.name)" ] ; then
     if [ -z "${NAME}" ] ; then
         echo -n "Git Name > "
         read -r NAME
@@ -100,7 +100,7 @@ if [ -n "${NAME}" ] || [ -z "$(git config user.name)" ] ; then
     git config --file /home/${USER}/.gitconfig.local user.name "$NAME"
 fi
 
-if [ -n "${HTTP_SSLVERIFY}" ] || [ -z "$(git config http.sslVerify)" ] ; then
+if \( [ -n "${HTTP_SSLVERIFY}" ] && [ "${HTTP_SSLVERIFY}" != "$(git config http.sslVerify)" ] \) || [ -z "$(git config http.sslVerify)" ] ; then
     if [ -z "${HTTP_SSLVERIFY}" ] ; then
         echo -n "Git SSL verify (0|1) > "
         read -r HTTP_SSLVERIFY
