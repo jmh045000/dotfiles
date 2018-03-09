@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
 while [[ $# -gt 0 ]] ; do
