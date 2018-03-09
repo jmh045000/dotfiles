@@ -44,7 +44,7 @@ install_package() {
     if [ -r "/etc/debian-release" ] ; then
         sudo apt-get install "${package}"
     elif [ -r "/etc/redhat-release" ] ; then
-        sudo yum install --yes "${package}"
+        sudo yum install -y "${package}"
     fi
 }
 
