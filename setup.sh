@@ -31,7 +31,12 @@ while [[ $# -gt 0 ]] ; do
     esac
 done
 
+orig_hash="$(md5sum "$0")"
 ( cd "${PRGDIR}" && git pull )
+new_hash="$(md5sum "$0")"
+if [ "$orig_hash" != "$new_hash" ] ; then
+    exec "$@"
+fi
 
 install_package() {
     local package="$1"
