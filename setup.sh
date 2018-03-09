@@ -44,7 +44,7 @@ install_package() {
 }
 
 # general
-mkdir "~/bin"
+mkdir -p ~/bin
 ln -sfv "${PRGDIR}/general/profile" ~/.profile
 
 # zsh
