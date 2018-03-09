@@ -35,7 +35,7 @@ orig_hash="$(md5sum "$0")"
 ( cd "${PRGDIR}" && git pull )
 new_hash="$(md5sum "$0")"
 if [ "$orig_hash" != "$new_hash" ] ; then
-    exec "$@"
+    exec $*
 fi
 
 install_package() {
