@@ -1,16 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
-PRGDIR=$(cd $(dirname $(ls -1 $0)) ; pwd)
+PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
-( cd ${PRGDIR} ; git pull )
 
-function install_package() {
+( cd "${PRGDIR}" && git pull )
+
+install_package() {
     local package="$1"
     echo "Installing ${package} with sudo"
     if [ -x "$(which apt-get)" ] ; then
-        sudo apt-get install ${package}
+        sudo apt-get install "${package}"
     elif [ -x "$(which yum)" ] ; then
-        sudo yum install ${package}
+        sudo yum install "${package}"
     fi
 }
 
@@ -39,25 +40,31 @@ if [ -z "$ag_exists" ] ; then
 fi
 
 # general
-ln -sfv ${PRGDIR}/general/profile ~/.profile
+ln -sfv "${PRGDIR}/general/profile" ~/.profile
 
 # zsh
-ln -sfv ${PRGDIR}/zsh/zshrc ~/.zshrc
+ln -sfv "${PRGDIR}/zsh/zshrc" ~/.zshrc
 
 # git
-ln -sfv ${PRGDIR}/git/gitconfig ~/.gitconfig
-ln -sfv ${PRGDIR}/git/gitignore ~/.gitignore
+ln -sfv "${PRGDIR}/git/gitconfig" ~/.gitconfig
+ln -sfv "${PRGDIR}/git/gitignore" ~/.gitignore
 
 if [ -z "$(git config user.email)" ] ; then
     echo -n "Git Email> "
-    read git_email
-    git config --file ~/.gitconfig.local user.email $git_email
+    read -r git_email
+    git config --file ~/.gitconfig.local user.email "$git_email"
 fi
 
 if [ -z "$(git config user.name)" ] ; then
     echo -n "Git Name > "
-    read git_name
-    git config --file ~/.gitconfig.local user.name $git_name
+    read -r git_name
+    git config --file ~/.gitconfig.local user.name "$git_name"
+fi
+
+if [ -z "$(git config http.sslVerify)" ] ; then
+    echo -n "Git SSL verify (0|1) > "
+    read -r git_ssl_verify
+    git config --file ~/.gitconfig.local http.sslVerify "$git_ssl_verify"
 fi
 
 # vim
@@ -66,9 +73,9 @@ if [ ! -e ~/.vim/bundle/Vundle.vim ] ; then
     mkdir -p ~/.vim/bundle
     git clone https://github.com/vundlevim/vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
-ln -sfv ${PRGDIR}/vim/vimrc ~/.vimrc
-ln -sfv ${PRGDIR}/vim/gvimrc ~/.gvimrc
-ln -sfv ${PRGDIR}/vim/bundles.vim ~/bundles.vim
+ln -sfv "${PRGDIR}/vim/vimrc" ~/.vimrc
+ln -sfv "${PRGDIR}/vim/gvimrc" ~/.gvimrc
+ln -sfv "${PRGDIR}/vim/bundles.vim" ~/bundles.vim
 
 # i3
 mkdir -p ~/.config/i3
