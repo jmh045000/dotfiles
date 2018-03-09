@@ -43,6 +43,11 @@ install_package() {
     fi
 }
 
+# general
+mkdir "~/bin"
+ln -sfv "${PRGDIR}/general/profile" ~/.profile
+
+# zsh
 set +e
 zsh_exists=$(which zsh)
 set -e
@@ -54,25 +59,6 @@ if [ ! -e ~/.oh-my-zsh ] ; then
     echo "Installing oh-my-zsh"
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
-
-set +e
-fzf_exists=$(which fzf)
-set -e
-if [ -z "$fzf_exists" ] ; then
-    install_package fzf
-fi
-
-set +e
-ag_exists=$(which ag)
-set -e
-if [ -z "$ag_exists" ] ; then
-    install_package the_silver_searcher
-fi
-
-# general
-ln -sfv "${PRGDIR}/general/profile" ~/.profile
-
-# zsh
 ln -sfv "${PRGDIR}/zsh/zshrc" ~/.zshrc
 
 # git
@@ -104,6 +90,21 @@ if [ -n "${HTTP_SSLVERIFY}" ] || [ -z "$(git config http.sslVerify)" ] ; then
 fi
 
 # vim
+set +e
+fzf_exists=$(which fzf)
+set -e
+if [ -z "$fzf_exists" ] ; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --bin
+    ln -s ~/.fzf/install/bin/fzf ~/bin/fzf
+fi
+
+set +e
+ag_exists=$(which ag)
+set -e
+if [ -z "$ag_exists" ] ; then
+    install_package the_silver_searcher
+fi
 if [ ! -e ~/.vim/bundle/Vundle.vim ] ; then
     echo "Installing vundle"
     mkdir -p ~/.vim/bundle
