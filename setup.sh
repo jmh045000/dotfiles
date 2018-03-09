@@ -2,15 +2,41 @@
 
 PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
+while [[ $# -gt 0 ]] ; do
+    key="$1"
+    case "$key" in
+        -e|--email)
+            EMAIL="$2"
+            shift
+            shift
+            ;;
+        -n|--name)
+            NAME="$2"
+            shift
+            shift
+            ;;
+        -s|--http-sslverify)
+            HTTP_SSLVERIFY="$2"
+            shift
+            shift
+            ;;
+        *)
+            echo "Unsupported argument $key"
+            echo "Usage:"
+            echo "    $0 [-e|--email <git email>] [-n|--name <git name>] [-s|--http-sslverify <0|1>]"
+            exit 1
+            ;;
+    esac
+done
 
 ( cd "${PRGDIR}" && git pull )
 
 install_package() {
     local package="$1"
     echo "Installing ${package} with sudo"
-    if [ -x "$(which apt-get)" ] ; then
+    if [ -r "/etc/debian-release" ] ; then
         sudo apt-get install "${package}"
-    elif [ -x "$(which yum)" ] ; then
+    elif [ -r "/etc/redhat-release" ] ; then
         sudo yum install "${package}"
     fi
 }
@@ -49,22 +75,28 @@ ln -sfv "${PRGDIR}/zsh/zshrc" ~/.zshrc
 ln -sfv "${PRGDIR}/git/gitconfig" ~/.gitconfig
 ln -sfv "${PRGDIR}/git/gitignore" ~/.gitignore
 
-if [ -z "$(git config user.email)" ] ; then
-    echo -n "Git Email> "
-    read -r git_email
-    git config --file ~/.gitconfig.local user.email "$git_email"
+if [ -n "${EMAIL}" ] || [ -z "$(git config user.email)" ] ; then
+    if [ -z "${EMAIL}" ] ; then
+        echo -n "Git Email> "
+        read -r EMAIL
+    fi
+    git config --file ~/.gitconfig.local user.email "$EMAIL"
 fi
 
-if [ -z "$(git config user.name)" ] ; then
-    echo -n "Git Name > "
-    read -r git_name
-    git config --file ~/.gitconfig.local user.name "$git_name"
+if [ -n "${NAME}" ] || [ -z "$(git config user.name)" ] ; then
+    if [ -z "${NAME}" ] ; then
+        echo -n "Git Name > "
+        read -r NAME
+    fi
+    git config --file ~/.gitconfig.local user.name "$NAME"
 fi
 
-if [ -z "$(git config http.sslVerify)" ] ; then
-    echo -n "Git SSL verify (0|1) > "
-    read -r git_ssl_verify
-    git config --file ~/.gitconfig.local http.sslVerify "$git_ssl_verify"
+if [ -n "${HTTP_SSLVERIFY}" ] || [ -z "$(git config http.sslVerify)" ] ; then
+    if [ -z "${HTTP_SSLVERIFY}" ] ; then
+        echo -n "Git SSL verify (0|1) > "
+        read -r HTTP_SSLVERIFY
+    fi
+    git config --file ~/.gitconfig.local http.sslVerify "$HTTP_SSLVERIFY"
 fi
 
 # vim
