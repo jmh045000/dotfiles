@@ -58,7 +58,7 @@ zsh_exists=$(which zsh)
 set -e
 if [ -z "$zsh_exists" ] ; then
     install_package zsh
-    sudo chsh $(whoami) -s /usr/bin/zsh
+    sudo chsh $(whoami) -s /bin/zsh
 fi
 
 if [ ! -e ~/.oh-my-zsh ] ; then
@@ -119,6 +119,8 @@ fi
 ln -sfv "${PRGDIR}/vim/vimrc" ~/.vimrc
 ln -sfv "${PRGDIR}/vim/gvimrc" ~/.gvimrc
 ln -sfv "${PRGDIR}/vim/bundles.vim" ~/bundles.vim
+vim +PluginInstall +qall
+vim +PluginUpdate +qall
 
 # i3
 mkdir -p ~/.config/i3
