@@ -99,9 +99,9 @@ set +e
 fzf_exists=$(which fzf)
 set -e
 if [ -z "$fzf_exists" ] ; then
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    [ ! -d ~/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --bin
-    ln -s ~/.fzf/install/bin/fzf ~/bin/fzf
+    ln -sfv ~/.fzf/install/bin/fzf ~/bin/fzf
 fi
 
 set +e
