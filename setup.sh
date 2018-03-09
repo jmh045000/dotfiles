@@ -5,6 +5,7 @@ set -e
 PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
 UPDATE="yes"
+USER="$(whoami)"
 while [[ $# -gt 0 ]] ; do
     key="$1"
     case "$key" in
@@ -20,6 +21,11 @@ while [[ $# -gt 0 ]] ; do
             ;;
         -s|--http-sslverify)
             HTTP_SSLVERIFY="$2"
+            shift
+            shift
+            ;;
+        -u|--user)
+            USER="$2"
             shift
             shift
             ;;
@@ -56,8 +62,8 @@ install_package() {
 }
 
 # general
-mkdir -p ~/bin
-ln -sfv "${PRGDIR}/general/profile" ~/.profile
+mkdir -p ~"${USER}"/bin
+ln -sfv "${PRGDIR}/general/profile" ~"${USER}"/.profile
 
 # zsh
 set +e
@@ -68,22 +74,22 @@ if [ -z "$zsh_exists" ] ; then
     sudo chsh $(whoami) -s /bin/zsh
 fi
 
-if [ ! -e ~/.oh-my-zsh ] ; then
+if [ ! -e ~"${USER}"/.oh-my-zsh ] ; then
     echo "Installing oh-my-zsh"
-    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ~"${USER}"/.oh-my-zsh
 fi
-ln -sfv "${PRGDIR}/zsh/zshrc" ~/.zshrc
+ln -sfv "${PRGDIR}/zsh/zshrc" ~"${USER}"/.zshrc
 
 # git
-ln -sfv "${PRGDIR}/git/gitconfig" ~/.gitconfig
-ln -sfv "${PRGDIR}/git/gitignore" ~/.gitignore
+ln -sfv "${PRGDIR}/git/gitconfig" ~"${USER}"/.gitconfig
+ln -sfv "${PRGDIR}/git/gitignore" ~"${USER}"/.gitignore
 
 if [ -n "${EMAIL}" ] || [ -z "$(git config user.email)" ] ; then
     if [ -z "${EMAIL}" ] ; then
         echo -n "Git Email> "
         read -r EMAIL
     fi
-    git config --file ~/.gitconfig.local user.email "$EMAIL"
+    git config --file ~"${USER}"/.gitconfig.local user.email "$EMAIL"
 fi
 
 if [ -n "${NAME}" ] || [ -z "$(git config user.name)" ] ; then
@@ -91,7 +97,7 @@ if [ -n "${NAME}" ] || [ -z "$(git config user.name)" ] ; then
         echo -n "Git Name > "
         read -r NAME
     fi
-    git config --file ~/.gitconfig.local user.name "$NAME"
+    git config --file ~"${USER}"/.gitconfig.local user.name "$NAME"
 fi
 
 if [ -n "${HTTP_SSLVERIFY}" ] || [ -z "$(git config http.sslVerify)" ] ; then
@@ -99,7 +105,7 @@ if [ -n "${HTTP_SSLVERIFY}" ] || [ -z "$(git config http.sslVerify)" ] ; then
         echo -n "Git SSL verify (0|1) > "
         read -r HTTP_SSLVERIFY
     fi
-    git config --file ~/.gitconfig.local http.sslVerify "$HTTP_SSLVERIFY"
+    git config --file ~"${USER}"/.gitconfig.local http.sslVerify "$HTTP_SSLVERIFY"
 fi
 
 # vim
@@ -107,9 +113,9 @@ set +e
 fzf_exists=$(which fzf)
 set -e
 if [ -z "$fzf_exists" ] ; then
-    [ ! -d ~/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --bin
-    ln -sfv ~/.fzf/bin/fzf ~/bin/
+    [ ! -d ~"${USER}"/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~"${USER}"/.fzf
+    ~"${USER}"/.fzf/install --bin
+    ln -sfv ~"${USER}"/.fzf/bin/fzf ~"${USER}"/bin/
 fi
 
 set +e
@@ -118,17 +124,17 @@ set -e
 if [ -z "$ag_exists" ] ; then
     install_package the_silver_searcher
 fi
-if [ ! -e ~/.vim/bundle/Vundle.vim ] ; then
+if [ ! -e ~"${USER}"/.vim/bundle/Vundle.vim ] ; then
     echo "Installing vundle"
-    mkdir -p ~/.vim/bundle
-    git clone https://github.com/vundlevim/vundle.vim.git ~/.vim/bundle/Vundle.vim
+    mkdir -p ~"${USER}"/.vim/bundle
+    git clone https://github.com/vundlevim/vundle.vim.git ~"${USER}"/.vim/bundle/Vundle.vim
 fi
-ln -sfv "${PRGDIR}/vim/vimrc" ~/.vimrc
-ln -sfv "${PRGDIR}/vim/gvimrc" ~/.gvimrc
-ln -sfv "${PRGDIR}/vim/bundles.vim" ~/bundles.vim
+ln -sfv "${PRGDIR}/vim/vimrc" ~"${USER}"/.vimrc
+ln -sfv "${PRGDIR}/vim/gvimrc" ~"${USER}"/.gvimrc
+ln -sfv "${PRGDIR}/vim/bundles.vim" ~"${USER}"/bundles.vim
 vim +PluginInstall +qall
 vim +PluginUpdate +qall
 
 # i3
-mkdir -p ~/.config/i3
-ln -sfv "${PRGDIR}/i3/config" ~/.config/i3/config
+mkdir -p ~"${USER}"/.config/i3
+ln -sfv "${PRGDIR}/i3/config" ~"${USER}"/.config/i3/config
