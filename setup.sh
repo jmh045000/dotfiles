@@ -43,7 +43,9 @@ install_package() {
     fi
 }
 
+set +e
 zsh_exists=$(which zsh)
+set -e
 if [ -z "$zsh_exists" ] ; then
     install_package zsh
 fi
@@ -53,18 +55,18 @@ if [ ! -e ~/.oh-my-zsh ] ; then
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
+set +e
 fzf_exists=$(which fzf)
+set -e
 if [ -z "$fzf_exists" ] ; then
     install_package fzf
 fi
 
+set +e
 ag_exists=$(which ag)
+set -e
 if [ -z "$ag_exists" ] ; then
-    if [ -x "$(which apt-get)" ] ; then
-        install_package silversearcher-ag
-    elif [ -x "$(which yum)" ] ; then
-        install_package the_silver_searcher
-    fi
+    install_package the_silver_searcher
 fi
 
 # general
