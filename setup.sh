@@ -76,7 +76,7 @@ fi
 
 if [ ! -e /home/${USER}/.oh-my-zsh ] ; then
     echo "Installing oh-my-zsh"
-    git clone https:/github.com/robbyrussell/oh-my-zsh.git /home/${USER}/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh.git /home/${USER}/.oh-my-zsh
 fi
 ln -sfv "${PRGDIR}/zsh/zshrc" /home/${USER}/.zshrc
 
@@ -113,7 +113,7 @@ set +e
 fzf_exists=$(which fzf)
 set -e
 if [ -z "$fzf_exists" ] ; then
-    [ ! -d /home/${USER}/.fzf ] && git clone --depth 1 https:/github.com/junegunn/fzf.git /home/${USER}/.fzf
+    [ ! -d /home/${USER}/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git /home/${USER}/.fzf
     /home/${USER}/.fzf/install --bin
     ln -sfv /home/${USER}/.fzf/bin/fzf /home/${USER}/bin/
 fi
@@ -127,7 +127,7 @@ fi
 if [ ! -e /home/${USER}/.vim/bundle/Vundle.vim ] ; then
     echo "Installing vundle"
     mkdir -p /home/${USER}/.vim/bundle
-    git clone https:/github.com/vundlevim/vundle.vim.git /home/${USER}/.vim/bundle/Vundle.vim
+    git clone https://github.com/vundlevim/vundle.vim.git /home/${USER}/.vim/bundle/Vundle.vim
 fi
 ln -sfv "${PRGDIR}/vim/vimrc" /home/${USER}/.vimrc
 ln -sfv "${PRGDIR}/vim/gvimrc" /home/${USER}/.gvimrc
