@@ -79,5 +79,7 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
+nnoremap <F3> :set number!<CR>
+
 " Disable comment continuation
 set formatoptions-=r formatoptions-=o
