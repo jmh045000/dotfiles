@@ -42,8 +42,6 @@
     m = merge
 
     # Pull
-    up = pull
-    plom = pull origin master
     plum = pull upstream master
     preb = !git fetch upstream && git rebase upstream/master
 
