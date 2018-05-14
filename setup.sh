@@ -132,6 +132,8 @@ fi
 ln -sfv "${PRGDIR}/vim/vimrc" /home/${USER}/.vimrc
 ln -sfv "${PRGDIR}/vim/gvimrc" /home/${USER}/.gvimrc
 ln -sfv "${PRGDIR}/vim/bundles.vim" /home/${USER}/bundles.vim
+mkdir -p /home/${USER}/.vim
+ln -sfv "${PRGDIR}/vim/ftplugin" /home/${USER}/.vim/ftplugin
 yes '' | vim +PluginInstall +qall
 yes '' | vim +PluginUpdate +qall
 

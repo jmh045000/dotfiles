@@ -11,7 +11,6 @@ set ts=4
 set et
 set autoindent 
 set sw=4  "this is the level of autoindent, adjust to taste
-set textwidth=79
 set ruler
 set number
 set backspace=indent,eol,start
