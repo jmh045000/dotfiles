@@ -49,6 +49,7 @@
     p = push
     pom = push origin master
     poh = !"git push origin $(git branch-name)"
+    puh = !"git push upstream $(git branch-name)"
 
     # Stash
     st = stash
