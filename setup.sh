@@ -4,6 +4,8 @@ set -e
 
 PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
+OS=$(uname)
+
 UPDATE="yes"
 USER="$(whoami)"
 while [[ $# -gt 0 ]] ; do
@@ -42,10 +44,16 @@ while [[ $# -gt 0 ]] ; do
     esac
 done
 
+if [ "${OS}" = "Darwin" ] ; then
+    MD5="md5"
+else
+    MD5="md5sum"
+fi
+
 if [ "${UPDATE}" = "yes" ] ; then
-    orig_hash="$(md5sum "$0")"
+    orig_hash="$(${MD5} "$0")"
     ( cd "${PRGDIR}" && git pull )
-    new_hash="$(md5sum "$0")"
+    new_hash="$(${MD5} "$0")"
     if [ "$orig_hash" != "$new_hash" ] ; then
         exec "$0" "$*"
     fi
@@ -62,8 +70,8 @@ install_package() {
 }
 
 # general
-mkdir -p /home/${USER}/bin
-ln -snfv "${PRGDIR}/general/profile" /home/${USER}/.profile
+mkdir -p ${HOME}/bin
+ln -snfv "${PRGDIR}/general/profile" ${HOME}/.profile
 
 # zsh
 set +e
@@ -74,22 +82,22 @@ if [ -z "$zsh_exists" ] ; then
     sudo chsh $(whoami) -s /bin/zsh
 fi
 
-if [ ! -e /home/${USER}/.oh-my-zsh ] ; then
+if [ ! -e ${HOME}/.oh-my-zsh ] ; then
     echo "Installing oh-my-zsh"
-    git clone https://github.com/robbyrussell/oh-my-zsh.git /home/${USER}/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
 fi
-ln -snfv "${PRGDIR}/zsh/zshrc" /home/${USER}/.zshrc
+ln -snfv "${PRGDIR}/zsh/zshrc" ${HOME}/.zshrc
 
 # git
-ln -snfv "${PRGDIR}/git/gitconfig" /home/${USER}/.gitconfig
-ln -snfv "${PRGDIR}/git/gitignore" /home/${USER}/.gitignore
+ln -snfv "${PRGDIR}/git/gitconfig" ${HOME}/.gitconfig
+ln -snfv "${PRGDIR}/git/gitignore" ${HOME}/.gitignore
 
 if [ -n "${EMAIL}" -a "${EMAIL}" != "$(git config user.email)" ] || [ -z "$(git config user.email)" ] ; then
     if [ -z "${EMAIL}" ] ; then
         echo -n "Git Email> "
         read -r EMAIL
     fi
-    git config --file /home/${USER}/.gitconfig.local user.email "$EMAIL"
+    git config --file ${HOME}/.gitconfig.local user.email "$EMAIL"
 fi
 
 if [ -n "${NAME}" -a "${NAME}" != "$(git config user.name)" ] || [ -z "$(git config user.name)" ] ; then
@@ -97,7 +105,7 @@ if [ -n "${NAME}" -a "${NAME}" != "$(git config user.name)" ] || [ -z "$(git con
         echo -n "Git Name > "
         read -r NAME
     fi
-    git config --file /home/${USER}/.gitconfig.local user.name "$NAME"
+    git config --file ${HOME}/.gitconfig.local user.name "$NAME"
 fi
 
 if [ -n "${HTTP_SSLVERIFY}" -a "${HTTP_SSLVERIFY}" != "$(git config http.sslVerify)" ] || [ -z "$(git config http.sslVerify)" ] ; then
@@ -105,7 +113,7 @@ if [ -n "${HTTP_SSLVERIFY}" -a "${HTTP_SSLVERIFY}" != "$(git config http.sslVeri
         echo -n "Git SSL verify (0|1) > "
         read -r HTTP_SSLVERIFY
     fi
-    git config --file /home/${USER}/.gitconfig.local http.sslVerify "$HTTP_SSLVERIFY"
+    git config --file ${HOME}/.gitconfig.local http.sslVerify "$HTTP_SSLVERIFY"
 fi
 
 # vim
@@ -113,9 +121,9 @@ set +e
 fzf_exists=$(which fzf)
 set -e
 if [ -z "$fzf_exists" ] ; then
-    [ ! -d /home/${USER}/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git /home/${USER}/.fzf
-    /home/${USER}/.fzf/install --bin
-    ln -snfv /home/${USER}/.fzf/bin/fzf /home/${USER}/bin/
+    [ ! -d ${HOME}/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+    ${HOME}/.fzf/install --bin
+    ln -snfv ${HOME}/.fzf/bin/fzf ${HOME}/bin/
 fi
 
 set +e
@@ -124,19 +132,19 @@ set -e
 if [ -z "$ag_exists" ] ; then
     install_package the_silver_searcher
 fi
-if [ ! -e /home/${USER}/.vim/bundle/Vundle.vim ] ; then
+if [ ! -e ${HOME}/.vim/bundle/Vundle.vim ] ; then
     echo "Installing vundle"
-    mkdir -p /home/${USER}/.vim/bundle
-    git clone https://github.com/vundlevim/vundle.vim.git /home/${USER}/.vim/bundle/Vundle.vim
+    mkdir -p ${HOME}/.vim/bundle
+    git clone https://github.com/vundlevim/vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
 fi
-ln -snfv "${PRGDIR}/vim/vimrc" /home/${USER}/.vimrc
-ln -snfv "${PRGDIR}/vim/gvimrc" /home/${USER}/.gvimrc
-ln -snfv "${PRGDIR}/vim/bundles.vim" /home/${USER}/bundles.vim
-mkdir -p /home/${USER}/.vim
-ln -snfv "${PRGDIR}/vim/ftplugin" /home/${USER}/.vim/ftplugin
+ln -snfv "${PRGDIR}/vim/vimrc" ${HOME}/.vimrc
+ln -snfv "${PRGDIR}/vim/gvimrc" ${HOME}/.gvimrc
+ln -snfv "${PRGDIR}/vim/bundles.vim" ${HOME}/bundles.vim
+mkdir -p ${HOME}/.vim
+ln -snfv "${PRGDIR}/vim/ftplugin" ${HOME}/.vim/ftplugin
 yes '' | vim +PluginInstall +qall
 yes '' | vim +PluginUpdate +qall
 
 # i3
-mkdir -p /home/${USER}/.config/i3
-ln -snfv "${PRGDIR}/i3/config" /home/${USER}/.config/i3/config
+mkdir -p ${HOME}/.config/i3
+ln -snfv "${PRGDIR}/i3/config" ${HOME}/.config/i3/config
