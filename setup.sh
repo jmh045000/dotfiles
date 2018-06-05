@@ -63,7 +63,7 @@ install_package() {
 
 # general
 mkdir -p /home/${USER}/bin
-ln -sfv "${PRGDIR}/general/profile" /home/${USER}/.profile
+ln -snfv "${PRGDIR}/general/profile" /home/${USER}/.profile
 
 # zsh
 set +e
@@ -78,11 +78,11 @@ if [ ! -e /home/${USER}/.oh-my-zsh ] ; then
     echo "Installing oh-my-zsh"
     git clone https://github.com/robbyrussell/oh-my-zsh.git /home/${USER}/.oh-my-zsh
 fi
-ln -sfv "${PRGDIR}/zsh/zshrc" /home/${USER}/.zshrc
+ln -snfv "${PRGDIR}/zsh/zshrc" /home/${USER}/.zshrc
 
 # git
-ln -sfv "${PRGDIR}/git/gitconfig" /home/${USER}/.gitconfig
-ln -sfv "${PRGDIR}/git/gitignore" /home/${USER}/.gitignore
+ln -snfv "${PRGDIR}/git/gitconfig" /home/${USER}/.gitconfig
+ln -snfv "${PRGDIR}/git/gitignore" /home/${USER}/.gitignore
 
 if [ -n "${EMAIL}" -a "${EMAIL}" != "$(git config user.email)" ] || [ -z "$(git config user.email)" ] ; then
     if [ -z "${EMAIL}" ] ; then
@@ -115,7 +115,7 @@ set -e
 if [ -z "$fzf_exists" ] ; then
     [ ! -d /home/${USER}/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git /home/${USER}/.fzf
     /home/${USER}/.fzf/install --bin
-    ln -sfv /home/${USER}/.fzf/bin/fzf /home/${USER}/bin/
+    ln -snfv /home/${USER}/.fzf/bin/fzf /home/${USER}/bin/
 fi
 
 set +e
@@ -129,14 +129,14 @@ if [ ! -e /home/${USER}/.vim/bundle/Vundle.vim ] ; then
     mkdir -p /home/${USER}/.vim/bundle
     git clone https://github.com/vundlevim/vundle.vim.git /home/${USER}/.vim/bundle/Vundle.vim
 fi
-ln -sfv "${PRGDIR}/vim/vimrc" /home/${USER}/.vimrc
-ln -sfv "${PRGDIR}/vim/gvimrc" /home/${USER}/.gvimrc
-ln -sfv "${PRGDIR}/vim/bundles.vim" /home/${USER}/bundles.vim
+ln -snfv "${PRGDIR}/vim/vimrc" /home/${USER}/.vimrc
+ln -snfv "${PRGDIR}/vim/gvimrc" /home/${USER}/.gvimrc
+ln -snfv "${PRGDIR}/vim/bundles.vim" /home/${USER}/bundles.vim
 mkdir -p /home/${USER}/.vim
-ln -sfv "${PRGDIR}/vim/ftplugin" /home/${USER}/.vim/ftplugin
+ln -snfv "${PRGDIR}/vim/ftplugin" /home/${USER}/.vim/ftplugin
 yes '' | vim +PluginInstall +qall
 yes '' | vim +PluginUpdate +qall
 
 # i3
 mkdir -p /home/${USER}/.config/i3
-ln -sfv "${PRGDIR}/i3/config" /home/${USER}/.config/i3/config
+ln -snfv "${PRGDIR}/i3/config" /home/${USER}/.config/i3/config
