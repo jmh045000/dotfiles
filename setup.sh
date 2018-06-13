@@ -142,8 +142,8 @@ ln -snfv "${PRGDIR}/vim/gvimrc" ${HOME}/.gvimrc
 ln -snfv "${PRGDIR}/vim/bundles.vim" ${HOME}/bundles.vim
 mkdir -p ${HOME}/.vim
 ln -snfv "${PRGDIR}/vim/ftplugin" ${HOME}/.vim/ftplugin
-yes '' | vim +PluginInstall +qall
-yes '' | vim +PluginUpdate +qall
+#yes '' | vim +PluginInstall +qall
+#yes '' | vim +PluginUpdate +qall
 
 # i3
 mkdir -p ${HOME}/.config/i3
