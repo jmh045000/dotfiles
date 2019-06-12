@@ -149,6 +149,7 @@ flycheck_*.el
 # C
 # Prerequisites
 *.d
+!*.d/
 
 # Object files
 *.o
