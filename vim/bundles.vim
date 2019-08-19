@@ -12,7 +12,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 
 Plugin 'bling/vim-airline'
-Plugin 'tomasr/molokai'
 Plugin 'a.vim'
 Plugin 'Modeliner'
 Plugin 'scrooloose/nerdcommenter'
@@ -24,6 +23,7 @@ Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf'
 Plugin 'mileszs/ack.vim'
 Plugin 'bkad/camelcasemotion'
+Plugin 'morhetz/gruvbox'
 
 try
   source ~/bundles.local.vim

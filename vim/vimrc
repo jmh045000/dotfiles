@@ -15,6 +15,7 @@ set ruler
 set number
 set backspace=indent,eol,start
 set visualbell
+set termguicolors
 " Uncomment below to make screen not flash on error
 " set vb t_vb=""
 
@@ -27,7 +28,9 @@ set hlsearch
 set laststatus=2
 
 " Change colorscheme
-colorscheme molokai
+colorscheme gruvbox
+let g:gruvbox_italic=1
+set background=dark
 
 " Make the ',' be the 'command modifier'
 let mapleader = ","
