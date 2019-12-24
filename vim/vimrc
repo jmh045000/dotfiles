@@ -28,7 +28,7 @@ set hlsearch
 set laststatus=2
 
 " Change colorscheme
-colorscheme gruvbox
+colorscheme molokai
 let g:gruvbox_italic=1
 set background=dark
 
