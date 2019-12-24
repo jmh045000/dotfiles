@@ -104,3 +104,8 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
+
+if &term =~ '256color'
+    " Disable Background Color Erase
+    set t_ut=
+endif
