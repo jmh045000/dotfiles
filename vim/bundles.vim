@@ -23,7 +23,7 @@ Plugin 'w0rp/ale'
 Plugin 'junegunn/fzf'
 Plugin 'mileszs/ack.vim'
 Plugin 'bkad/camelcasemotion'
-Plugin 'morhetz/gruvbox'
+Plugin 'tomasr/molokai'
 
 try
   source ~/bundles.local.vim
