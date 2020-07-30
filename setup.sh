@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 PRGDIR="$(cd "$(dirname "$(ls -1 "$0")")" && pwd)"
 
@@ -73,21 +73,6 @@ install_package() {
 mkdir -p ${HOME}/bin
 ln -snfv "${PRGDIR}/general/profile" ${HOME}/.profile
 
-# zsh
-set +e
-zsh_exists=$(which zsh)
-set -e
-if [ -z "$zsh_exists" ] ; then
-    install_package zsh
-    sudo chsh $(whoami) -s /bin/zsh
-fi
-
-if [ ! -e ${HOME}/.oh-my-zsh ] ; then
-    echo "Installing oh-my-zsh"
-    git clone https://github.com/robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
-fi
-ln -snfv "${PRGDIR}/zsh/zshrc" ${HOME}/.zshrc
-
 # git
 ln -snfv "${PRGDIR}/git/gitconfig" ${HOME}/.gitconfig
 ln -snfv "${PRGDIR}/git/gitignore" ${HOME}/.gitignore
@@ -115,6 +100,21 @@ if [ -n "${HTTP_SSLVERIFY}" -a "${HTTP_SSLVERIFY}" != "$(git config http.sslVeri
     fi
     git config --file ${HOME}/.gitconfig.local http.sslVerify "$HTTP_SSLVERIFY"
 fi
+
+# zsh
+set +e
+zsh_exists=$(which zsh)
+set -e
+if [ -z "$zsh_exists" ] ; then
+    install_package zsh
+    sudo chsh $(whoami) -s /bin/zsh
+fi
+
+if [ ! -e ${HOME}/.oh-my-zsh ] ; then
+    echo "Installing oh-my-zsh"
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ${HOME}/.oh-my-zsh
+fi
+ln -snfv "${PRGDIR}/zsh/zshrc" ${HOME}/.zshrc
 
 # vim
 set +e
