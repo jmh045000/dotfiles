@@ -109,3 +109,5 @@ if &term =~ '256color'
     " Disable Background Color Erase
     set t_ut= | set ttyscroll=1
 endif
+
+source ~/.vimrc.local
