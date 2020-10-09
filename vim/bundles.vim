@@ -24,6 +24,7 @@ Plugin 'junegunn/fzf'
 Plugin 'mileszs/ack.vim'
 Plugin 'bkad/camelcasemotion'
 Plugin 'tomasr/molokai'
+Plugin 'hashivim/vim-terraform'
 
 try
   source ~/bundles.local.vim

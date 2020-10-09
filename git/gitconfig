@@ -162,6 +162,7 @@
     excludesfile = ~/.gitignore
     autocrlf = input
     ignorecase = false
+	filemode = false
 
 [pretty]
     custom = "%C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)"
