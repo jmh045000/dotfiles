@@ -195,3 +195,7 @@
     prune = true
 [credential]
 	helper = store
+[url "bbgithub:"]
+	insteadof = https://bbgithub.dev.bloomberg.com/
+[init]
+	defaultBranch = main
